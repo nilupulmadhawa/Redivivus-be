@@ -1,7 +1,7 @@
 # redivivus-be
 
 ## Clone the repository
-```https://github.com/ThulinaWickramasinghe/Redivivus-be.git```
+```git clone https://github.com/ThulinaWickramasinghe/Redivivus-be.git```
 
 ## update yarn to the latest stable version
 
