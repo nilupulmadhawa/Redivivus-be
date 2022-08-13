@@ -23,7 +23,6 @@
 2. Make the changes to the code
 
 3. Add the files.
-
 ```git add .``` or ```git add <file names>```
 
 4. Commit with a suitable commit message following conventions
