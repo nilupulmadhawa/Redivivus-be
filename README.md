@@ -6,14 +6,15 @@
 ## update yarn to the latest stable version
 
 ``` yarn set version stable ```
+
 ## install dependancies
 ```yarn```
 
-## run the project in development mode
-``` yarn dev```
-
 ## add the env file
     It will be sent to you personally. Don't share it with anyone else other than the ones with access to this repository.
+
+## run the project in development mode
+``` yarn dev```
 
 ### if you want to contribute
 
