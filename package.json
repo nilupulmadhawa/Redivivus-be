@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Backend",
   "main": "src/app.js",
+  "browserslist": "> 0.25%, not dead",
   "scripts": {
     "build": "babel src -d dist",
     "dev": "nodemon --exec babel-node src/app.js",
