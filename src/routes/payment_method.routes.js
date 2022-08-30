@@ -4,8 +4,8 @@ import {addPaymentMethod ,updatePaymentMethod ,getOnePaymentMethod,getAllPayment
 const paymentMethodRouter = express.Router();
 
 paymentMethodRouter.post("/",addPaymentMethod);
-paymentMethodRouter.put("/:id", updatePaymentMethod);
-paymentMethodRouter.get("/:id", getOnePaymentMethod);
+// paymentMethodRouter.put("/:id", updatePaymentMethod);
+// paymentMethodRouter.get("/:id", getOnePaymentMethod);
 paymentMethodRouter.get("/", getAllPaymentMethods);
 
 export default paymentMethodRouter;

@@ -3,11 +3,17 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 /*
 * PaymentMethod Schema is defined to store payment method details
 */
+const AddressSchema = mongoose.Schema({
+  city: String,
+  street: String,
+  houseNumber: String,
+});
+mongoose.model('Address',AddressSchema);
 const PaymentMethodSchema =new Schema({
      methodType:{type:String, required:true},
      expirationDate:{type:Date,required:true},
      activeStatus:{type:Boolean,default:true,required:true},
-     paymentAddress:{addressLine1:{type:String,required:true},addressLine2:{type:String,required:true},addressLine3:{type:String,required:true}},
+     paymentAddress:{type: mongoose.Schema.Types.ObjectId, ref: "Address"},
      cardNumber:{type:String,required:true,unique:true},  
      cvc:{type:Number,required:true},
      postalCode:{type:Number,required:true},

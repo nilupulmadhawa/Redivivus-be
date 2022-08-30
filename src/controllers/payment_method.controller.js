@@ -4,7 +4,7 @@ import { makeResponse } from '../utils/response'
 
 export const getAllPaymentMethods = asyncHandler(async (req, res) => {
   const data = await retrieveAllPaymentMethods(req.query.page,req.query.limit)
-  return makeResponse({ res, data, message: 'Employees retrieved successfully' })
+  return makeResponse({ res, data, message: 'Payment methods retrieved successfully' })
 })
 
 export const addPaymentMethod = asyncHandler(async (req, res) => {
