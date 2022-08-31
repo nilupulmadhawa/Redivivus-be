@@ -1,10 +1,8 @@
-import PaymentMethod from '../models/.model'
-import mongoose from 'mongoose'
-
-const ObjectId = mongoose.Types.ObjectId
+import ContactUs from '../models/contactus.models'
 
 
-export const insertPaymentMethod = async (data) => {
-  return await new PaymentMethod(data).save()
+
+export const insertContactUsEntry = async (data) => {
+  return await new ContactUs(data).save()
 }
 

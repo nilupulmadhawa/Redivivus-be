@@ -3,9 +3,9 @@ import mongoose,{Schema} from "mongoose";
 
 const ContactUsSchema =new Schema({
      name:{type:String, required:true},
-     email:{type:Date,required:true},
-     message:{type:Boolean,default:true,required:true},
-    
+     email:{type:String,required:true,match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']},
+     message:{type:String,required:true}
+     
 
 
 },{
