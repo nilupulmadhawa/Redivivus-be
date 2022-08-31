@@ -1,11 +1,12 @@
 import express from "express";
-import {addPaymentMethod ,updatePaymentMethod ,getOnePaymentMethod,getAllPaymentMethods} from "../controllers/payment_method.controller";
+import {addPaymentMethod ,updatePaymentMethod ,getOnePaymentMethod,getAllPaymentMethods,removePaymentMethod} from "../controllers/payment_method.controller";
 
 const paymentMethodRouter = express.Router();
 
 paymentMethodRouter.post("/",addPaymentMethod);
-// paymentMethodRouter.put("/:id", updatePaymentMethod);
-// paymentMethodRouter.get("/:id", getOnePaymentMethod);
+paymentMethodRouter.patch("/:id", updatePaymentMethod);
+paymentMethodRouter.get("/:id", getOnePaymentMethod);
 paymentMethodRouter.get("/", getAllPaymentMethods);
+paymentMethodRouter.delete("/:id",removePaymentMethod)
 
 export default paymentMethodRouter;

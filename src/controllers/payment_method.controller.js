@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/async'
-import { retrieveAllPaymentMethods,createPaymentMethod} from '../services/paymentmethod'
+import { retrieveAllPaymentMethods,createPaymentMethod,updatePaymentMethodById, getOnePaymentMethodDetails,deletePaymentMethod} from '../services/paymentmethod'
 import { makeResponse } from '../utils/response'
 
 export const getAllPaymentMethods = asyncHandler(async (req, res) => {
@@ -12,4 +12,26 @@ export const addPaymentMethod = asyncHandler(async (req, res) => {
   if (!result) return makeResponse({ res, status: 500, message: 'Failed to add Payment method' })
   if (result.status) return makeResponse({ res, ...result })
   return makeResponse({ res, message: 'Payment method added successfully' })
+})
+
+
+export const updatePaymentMethod = asyncHandler(async (req, res) => {
+  const result = await updatePaymentMethodById(req.params.id, req.body)
+  if (!result) return makeResponse({ res, status: 500, message: 'Failed to update Payment method' })
+  if (result.status) return makeResponse({ res, ...result })
+  return makeResponse({ res,data:result, message: 'Payment method updated successfully' })
+})
+
+export const getOnePaymentMethod = asyncHandler(async (req, res) => {
+  const result = await getOnePaymentMethodDetails(req.params.id)
+
+ if (result.status!=200) return makeResponse({ res, ...result })
+  return makeResponse({ res, data: result.data, message: result.message })
+})
+
+export const removePaymentMethod = asyncHandler(async (req, res) => {
+  const result = await deletePaymentMethod(req.params.id)
+  if (!result) return makeResponse({ res, status: 500, message: 'Failed to delete Paymend method' })
+  if (result.status) return makeResponse({ res, ...result })
+  return makeResponse({ res, message: 'Payment method deleted successfully' })
 })
