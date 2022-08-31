@@ -1,4 +1,4 @@
-import PaymentMethod from '../models/payment_method.model'
+import PaymentMethod from '../models/.model'
 import mongoose from 'mongoose'
 
 const ObjectId = mongoose.Types.ObjectId
