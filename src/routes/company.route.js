@@ -2,7 +2,7 @@ import express from "express";
 
 import {
   addCompany,
-  getCompany,
+  getAllCompany,
   getCompanyById,
   updateCompany,
   deleteCompany,
@@ -11,7 +11,7 @@ const companyRoute = express.Router();
 
 companyRoute.post("/addcompany", addCompany);
 
-companyRoute.get("/allcompany", getCompany);
+companyRoute.get("/allcompany", getAllCompany);
 
 companyRoute.get("/getcompany/:id", getCompanyById);
 

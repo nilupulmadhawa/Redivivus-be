@@ -1,7 +1,7 @@
 import { error } from "winston";
 import asyncHandler from "../middleware/async";
 import Company from "../models/company.model";
-import { createCompany } from "../services/company";
+import { createCompany ,retrieveAllCompany} from "../services/company";
 import { makeResponse } from "../utils/response";
 
 //Adding a Company
@@ -62,14 +62,20 @@ const addCompany = asyncHandler(async (req, res) => {
 });
 
 //Get All Companies
-const getCompany = async (req, res) => {
-  try {
-    const company = await Company.find();
-    res.json(company);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-};
+// const getAllCompany = async (req, res) => {
+//   try {
+//     const company = await Company.find();
+//     res.json(company);
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// };
+
+
+export const getAllCompany = asyncHandler(async (req, res) => {
+  const data = await retrieveAllCompany(req.query.page,req.query.limit)
+  return makeResponse({ res, data, message: 'Companies retrieved successfully' })
+})
 
 //Get a Realavant Company
 const getCompanyById = async (req, res) => {
@@ -159,7 +165,7 @@ const deleteCompany = async (req, res) => {
 
 module.exports = {
   addCompany,
-  getCompany,
+  getAllCompany,
   getCompanyById,
   updateCompany,
   deleteCompany,
