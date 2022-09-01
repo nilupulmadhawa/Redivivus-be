@@ -2,22 +2,21 @@ import express from "express";
 
 const router = express.Router();
 
-import{
-    addCompany,
-    getCompany,
-    getCompanyById,
-    updateCompany,
-    deleteCompany
+import {
+  addCompany,
+  getCompany,
+  getCompanyById,
+  updateCompany,
+  deleteCompany,
 } from "../controllers/company.controller";
-
 
 router.post("/addcompany", addCompany);
 
-router.get("/allcompany" , getCompany);
+router.get("/allcompany", getCompany);
 
-router.get("/getcompany/:id" , getCompanyById);
+router.get("/getcompany/:id", getCompanyById);
 
-router.put("/updatecompany/:id" , updateCompany);
+router.patch("/updatecompany/:id", updateCompany);
 
 router.delete("/deletecompany/:id", deleteCompany);
 
