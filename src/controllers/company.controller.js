@@ -1,7 +1,11 @@
 import { error } from "winston";
 import asyncHandler from "../middleware/async";
 import Company from "../models/company.model";
-import { createCompany ,retrieveAllCompany ,getCompanyDetails} from "../services/company";
+import {
+  createCompany,
+  retrieveAllCompany,
+  getCompanyDetails,
+} from "../services/company";
 import { makeResponse } from "../utils/response";
 
 //Adding a Company
@@ -71,11 +75,14 @@ const addCompany = asyncHandler(async (req, res) => {
 //   }
 // };
 
-
 export const getAllCompany = asyncHandler(async (req, res) => {
-  const data = await retrieveAllCompany(req.query.page,req.query.limit)
-  return makeResponse({ res, data, message: 'Companies retrieved successfully' })
-})
+  const data = await retrieveAllCompany(req.query.page, req.query.limit);
+  return makeResponse({
+    res,
+    data,
+    message: "Companies retrieved successfully",
+  });
+});
 
 //Get a Realavant Company
 // const getCompanyById = async (req, res) => {
@@ -101,13 +108,12 @@ export const getAllCompany = asyncHandler(async (req, res) => {
 //   }
 // };
 
-
 export const getCompanyById = asyncHandler(async (req, res) => {
-  const result = await getCompanyDetails(req.params.id)
+  const result = await getCompanyDetails(req.params.id);
 
- if (result.status!=200) return makeResponse({ res, ...result })
-  return makeResponse({ res, data: result.data, message: result.message })
-})
+  if (result.status != 200) return makeResponse({ res, ...result });
+  return makeResponse({ res, data: result.data, message: result.message });
+});
 
 //Update a Company
 const updateCompany = async (req, res) => {
