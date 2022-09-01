@@ -1,53 +1,65 @@
 import { error } from "winston";
-import Company from "../models/company";
+import asyncHandler from "../middleware/async";
+import Company from "../models/company.model";
+import { createCompany } from "../services/company";
+import { makeResponse } from "../utils/response";
 
 //Adding a Company
-const addCompany = (req, res) => {
-  const {
-    name,
-    email,
-    address,
-    telephone,
-    customers,
-    centers,
-    logo,
-    openhour,
-    closehour,
-    opendays,
-    slogan,
-    about,
-  } = req.body;
-
-  const company = new Company({
-    name,
-    email,
-    address,
-    telephone,
-    customers,
-    centers,
-    logo,
-    openhour,
-    closehour,
-    opendays,
-    slogan,
-    about,
-  });
-
-  company
-    .save()
-    .then((createCompany) => {
-      res.json(createCompany);
-    })
-    .catch((error) => {
-      res.status(400).json(error);
+const addCompany = asyncHandler(async (req, res) => {
+  const result = await createCompany(req.body);
+  if (!result)
+    return makeResponse({
+      res,
+      status: 500,
+      message: "Failed to add Company",
     });
+  if (result.status) return makeResponse({ res, ...result });
+  return makeResponse({ res, message: "Company added successfully" });
+  // const {
+  //   name,
+  //   email,
+  //   address,
+  //   telephone,
+  //   customers,
+  //   centers,
+  //   logo,
+  //   openhour,
+  //   closehour,
+  //   opendays,
+  //   slogan,
+  //   about,
+  // } = req.body;
 
-  //     const data = await Company.create({name,email,address,telephone,customers,centers,logo,openhour,closehour,opendays,slogan,about});
-  //    if( data ) {
-  //        res.status(201).json({message:"Company Added Successfully!"})
-  //    }
-  //        else{res.status(400).json({message:"Error Occured "})}
-};
+  // const company = new Company({
+  //   name,
+  //   email,
+  //   address,
+  //   telephone,
+  //   customers,
+  //   centers,
+  //   logo,
+  //   openhour,
+  //   closehour,
+  //   opendays,
+  //   slogan,
+  //   about,
+  // });
+
+  // company
+  //   .save()
+  //   .then((createCompany) => {
+  //     res.json(createCompany);
+  //   })
+  //   .catch((error) => {
+  //     res.status(400).json(error);
+  //   });
+
+  // //     const data = await Company.create({name,email,address,telephone,customers,centers,logo,openhour,closehour,opendays,slogan,about});
+  // //    if( data ) {
+  // //        res.status(201).json({message:"Company Added Successfully!"})
+  // //    }
+  // //        else{res.status(400).json({message:"Error Occured "})}
+});
 
 //Get All Companies
 const getCompany = async (req, res) => {

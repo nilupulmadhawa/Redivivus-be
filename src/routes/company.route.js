@@ -1,7 +1,5 @@
 import express from "express";
 
-const router = express.Router();
-
 import {
   addCompany,
   getCompany,
@@ -9,15 +7,16 @@ import {
   updateCompany,
   deleteCompany,
 } from "../controllers/company.controller";
+const companyRoute = express.Router();
 
-router.post("/addcompany", addCompany);
+companyRoute.post("/addcompany", addCompany);
 
-router.get("/allcompany", getCompany);
+companyRoute.get("/allcompany", getCompany);
 
-router.get("/getcompany/:id", getCompanyById);
+companyRoute.get("/getcompany/:id", getCompanyById);
 
-router.patch("/updatecompany/:id", updateCompany);
+companyRoute.patch("/updatecompany/:id", updateCompany);
 
-router.delete("/deletecompany/:id", deleteCompany);
+companyRoute.delete("/deletecompany/:id", deleteCompany);
 
-module.exports = router;
+module.exports = companyRoute;
