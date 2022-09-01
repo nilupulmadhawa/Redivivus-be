@@ -10,14 +10,14 @@ export const retrieveAllCompany = async (data) => {
   return getAllCompany(data);
 };
 
-// export const getCompanyDetails=async(company_id)=>{
-//     const result= await findPaymentMethod({ _id: company_id })
+export const getCompanyDetails=async(company_id)=>{
+    const result= await findCompany({ _id: company_id })
 //    console.log(result)
-//    if (result.length === 0)
-//       return {
-//         status: 400,
-//         message: "This payment method doesn't exist "
-//       }
-//     return {status:200,data:result,message:'Company details retrieved successfully'}
-//   }
+   if (result.length === 0)
+      return {
+        status: 400,
+        message: "This payment method doesn't exist "
+      }
+    return {status:200,data:result,message:'Company details retrieved successfully'}
+  }
   

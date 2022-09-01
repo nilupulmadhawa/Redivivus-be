@@ -1,7 +1,7 @@
 import { error } from "winston";
 import asyncHandler from "../middleware/async";
 import Company from "../models/company.model";
-import { createCompany ,retrieveAllCompany} from "../services/company";
+import { createCompany ,retrieveAllCompany ,getCompanyDetails} from "../services/company";
 import { makeResponse } from "../utils/response";
 
 //Adding a Company
@@ -78,28 +78,36 @@ export const getAllCompany = asyncHandler(async (req, res) => {
 })
 
 //Get a Realavant Company
-const getCompanyById = async (req, res) => {
-  try {
-    if (req.params && req.params.id) {
-      const company = await Company.findById(req.params.id);
+// const getCompanyById = async (req, res) => {
+//   try {
+//     if (req.params && req.params.id) {
+//       const company = await Company.findById(req.params.id);
 
-      return res.status(200).json({
-        code: 200,
-        success: true,
-        status: "OK",
-        company,
-        message: `Accessed Company details.`,
-      });
-    }
-  } catch (err) {
-    return res.status(500).json({
-      code: 500,
-      success: false,
-      status: "Internal Server Error",
-      message: error.message,
-    });
-  }
-};
+//       return res.status(200).json({
+//         code: 200,
+//         success: true,
+//         status: "OK",
+//         company,
+//         message: `Accessed Company details.`,
+//       });
+//     }
+//   } catch (err) {
+//     return res.status(500).json({
+//       code: 500,
+//       success: false,
+//       status: "Internal Server Error",
+//       message: error.message,
+//     });
+//   }
+// };
+
+
+export const getCompanyById = asyncHandler(async (req, res) => {
+  const result = await getCompanyDetails(req.params.id)
+
+ if (result.status!=200) return makeResponse({ res, ...result })
+  return makeResponse({ res, data: result.data, message: result.message })
+})
 
 //Update a Company
 const updateCompany = async (req, res) => {
