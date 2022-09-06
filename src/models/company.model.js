@@ -1,13 +1,71 @@
-import mongoose, { Schema, SchemaType } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const CompanySchema = new Schema(
+const companySchema = new Schema(
   {
-    companyName: { type: String, required: true },
-    address: { type: String, required: true },
+    name: {
+      type: String,
+      required: true,
+    },
+
+    email: {
+      type: String,
+      required: true,
+    },
+
+    address: {
+      type: "String",
+      required: true,
+    },
+
+    telephone: {
+      type: "String",
+      required: true,
+    },
+
+    customers: {
+      type: "Number",
+      required: true,
+    },
+
+    centers: {
+      type: "Number",
+      required: true,
+    },
+
+    logo: {
+      type: "String",
+      required: true,
+    },
+
+    openhour: {
+      type: "String",
+      required: true,
+    },
+
+    closehour: {
+      type: "String",
+      required: true,
+    },
+
+    opendays: {
+      type: "String",
+      required: true,
+    },
+
+    slogan: {
+      type: "String",
+      required: true,
+    },
+
+    about: {
+      type: "String",
+      required: true,
+    },
   },
-  { versionKey: false }
+  {
+    timestamps: true,
+  }
 );
 
-const Company = mongoose.model("Company", CompanySchema);
+module.exports = mongoose.model("Company", companySchema);
 
-export default Company;
