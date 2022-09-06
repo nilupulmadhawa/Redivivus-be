@@ -17,7 +17,7 @@ const PaymentMethodSchema =new Schema({
 },{
      versionKey:false,
 })
-PaymentMethodSchema.plugin(mongoosePaginate);
+// PaymentMethodSchema.plugin(mongoosePaginate);
 
 PaymentMethodSchema.index({ createdAt: 1 });
 const PaymentMethod = mongoose.model('PaymentMethod',PaymentMethodSchema);
