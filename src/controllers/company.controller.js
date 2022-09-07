@@ -19,61 +19,10 @@ const addCompany = asyncHandler(async (req, res) => {
     });
   if (result.status) return makeResponse({ res, ...result });
   return makeResponse({ res, message: "Company added successfully" });
-  // const {
-  //   name,
-  //   email,
-  //   address,
-  //   telephone,
-  //   customers,
-  //   centers,
-  //   logo,
-  //   openhour,
-  //   closehour,
-  //   opendays,
-  //   slogan,
-  //   about,
-  // } = req.body;
 
-  // const company = new Company({
-  //   name,
-  //   email,
-  //   address,
-  //   telephone,
-  //   customers,
-  //   centers,
-  //   logo,
-  //   openhour,
-  //   closehour,
-  //   opendays,
-  //   slogan,
-  //   about,
-  // });
-
-  // company
-  //   .save()
-  //   .then((createCompany) => {
-  //     res.json(createCompany);
-  //   })
-  //   .catch((error) => {
-  //     res.status(400).json(error);
-  //   });
-
-  // //     const data = await Company.create({name,email,address,telephone,customers,centers,logo,openhour,closehour,opendays,slogan,about});
-  // //    if( data ) {
-  // //        res.status(201).json({message:"Company Added Successfully!"})
-  // //    }
-  // //        else{res.status(400).json({message:"Error Occured "})}
 });
 
-//Get All Companies
-// const getAllCompany = async (req, res) => {
-//   try {
-//     const company = await Company.find();
-//     res.json(company);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// };
+
 
 export const getAllCompany = asyncHandler(async (req, res) => {
   const data = await retrieveAllCompany(req.query.page, req.query.limit);
@@ -84,29 +33,7 @@ export const getAllCompany = asyncHandler(async (req, res) => {
   });
 });
 
-//Get a Realavant Company
-// const getCompanyById = async (req, res) => {
-//   try {
-//     if (req.params && req.params.id) {
-//       const company = await Company.findById(req.params.id);
 
-//       return res.status(200).json({
-//         code: 200,
-//         success: true,
-//         status: "OK",
-//         company,
-//         message: `Accessed Company details.`,
-//       });
-//     }
-//   } catch (err) {
-//     return res.status(500).json({
-//       code: 500,
-//       success: false,
-//       status: "Internal Server Error",
-//       message: error.message,
-//     });
-//   }
-// };
 
 export const getCompanyById = asyncHandler(async (req, res) => {
   const result = await getCompanyDetails(req.params.id);
@@ -185,15 +112,3 @@ module.exports = {
   deleteCompany,
 };
 
-// name
-// email
-// address
-// telephone
-// customers
-// centers
-// logo
-// openhour
-// closehour
-// opendays
-// slogan
-// about
