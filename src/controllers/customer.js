@@ -1,31 +1,32 @@
 import asyncHandler from '../middleware/async'
-import { addNewUser,changePasswordService ,getUsers, getUserByID, updateUserdetails} from '../services/customer'
+import { addNewCustomer,changePasswordService ,getCustomers, getCustomerByID, updateCustomerdetails} from '../services/customer'
 import { makeResponse } from '../utils/response'
 
 
 export const create = asyncHandler(async (req, res) => {
-  const result = await addNewUser(req.body)
+  console.log(req.body)
+  const result = await addNewCustomer(req.body)
   if (!result) return makeResponse({ res, status: 500, message: 'Failed to add user' })
   if (result.status) return makeResponse({ res, ...result })
-  return makeResponse({ res, status: 200, data: result, message: 'User added successfully' })
+  return makeResponse({ res, status: 200, data: result, message: 'Customer added successfully' })
 })
 
-// export const getAll = asyncHandler(async (req, res) => {
-//   const users = await getUsers(req.query)
-//   return makeResponse({ res, status: 200, data: users, message: 'Users retrieved succesfully' })
-// })
+export const getAll = asyncHandler(async (req, res) => {
+  const users = await getCustomers(req.query)
+  return makeResponse({ res, status: 200, data: users, message: 'Customers retrieved succesfully' })
+})
 
-// export const getById = asyncHandler(async (req, res) => {
-//   const ret = await getUserByID(req.params.id)
-//   if (ret.status) return makeResponse({ res, ...ret })
-//   return makeResponse({ res, status: 200, data: ret, message: 'User retrieved succesfully' })
-// })
+export const getById = asyncHandler(async (req, res) => {
+  const customer = await getCustomerByID(req.params.id)
+  if (!customer) return makeResponse({ res, status:500, message : 'Failed to retrieve customer'})
+  return makeResponse({ res, status: 200, data: customer, message: 'Customer retrieved succesfully' })
+})
 
 // export const update = asyncHandler(async (req, res) => {
-//   const result = await updateUserdetails(req.params.id, req.user, req.body)
+//   const result = await updateCustomerdetails(req.params.id, req.user, req.body)
 //   if (!result) return makeResponse({ res, status: 500, message: 'Failed to update user' })
 //   if (result.status) return makeResponse({ res, ...result })
-//   return makeResponse({ res, status: 200, data: result, message: 'User updated successfully' })
+//   return makeResponse({ res, status: 200, data: result, message: 'Customer updated successfully' })
 // })
 
 

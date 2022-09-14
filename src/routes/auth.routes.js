@@ -1,7 +1,7 @@
 import express from 'express'
 import { celebrate, Segments } from 'celebrate'
 import {  register, } from '../controllers/auth'
-import { registerSchema } from '../validations/user'
+import { registerSchema } from '../validations/customer'
 import { protect } from '../middleware/auth'
 import rateLimit from 'express-rate-limit'
 
@@ -15,7 +15,7 @@ const authRouter = express.Router()
 // })
 
 // authRouter.post('/login', celebrate({ [Segments.BODY]: loginSchema }), login)
-authRouter.post('/register', celebrate({ [Segments.BODY]: registerSchema }), register)
+authRouter.post('/customer', celebrate({ [Segments.BODY]: registerSchema }), register)
 // authRouter.get('/current', protect, current)
 // authRouter.post('/verify', celebrate({ [Segments.BODY]: resendVerifyMailSchema }), verifyEmailLimiter, resendVerification)
 // authRouter.get('/verify/:verification_code', celebrate({ [Segments.PARAMS]: verifySchema }), verifyUser)

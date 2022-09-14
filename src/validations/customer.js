@@ -6,14 +6,14 @@ export const registerSchema = Joi.object({
     last_name : Joi.string().required(),
   }),
   email: Joi.string().email().required().lowercase(),
-  hashed_password : Joi.string().required(),
+  password : Joi.string().required(),
   phone : Joi.string().required().regex(/^\d{10}$/),
   address : Joi.string().required(),
   bank_details : Joi.object({
-    bank_name: Joi.string().required(),
-    acc_no: Joi.string().required().regex(/^[\d]+$/),
-    branch : Joi.string().required(),
-    acc_owner : Joi.string().required()
+    bank_name: Joi.string(),
+    acc_no: Joi.string().regex(/^[\d]+$/),
+    branch : Joi.string(),
+    acc_owner : Joi.string()
   }),
   earnings : Joi.array().items(
     Joi.string().hex().length(24)

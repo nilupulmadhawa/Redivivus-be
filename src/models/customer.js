@@ -19,7 +19,7 @@ const CustomerSchema = new mongoose.Schema(
       unique: [true, 'Email should be unique'],
       lowercase: [true, 'Email should be lowercase']
     },
-    hashed_password: {
+    password: {
       type: String,
       required: [true, 'Hashed password is rquired'],
     },
@@ -40,11 +40,9 @@ const CustomerSchema = new mongoose.Schema(
     bank_details: {
       bank_name: {
         type: String,
-        required: true,
       },
       acc_no: {
         type: String,
-        required: true,
         validate: {
           validator: (v) => {
             return /^[\d]+$/mg.test(v);
@@ -54,11 +52,9 @@ const CustomerSchema = new mongoose.Schema(
       },
       branch: {
         type: String,
-        required: true,
       },
       acc_owner: {
         type: String,
-        required: true,
       }
     },
     earnings : [{
@@ -70,18 +66,12 @@ const CustomerSchema = new mongoose.Schema(
     subscribed_companies : [{
       type : mongoose.Schema.Types.ObjectId,
     },],
-    verification_code: {
-      type: String,
-      required: false
-    },
     is_verified: {
       type: Boolean,
-      required: true,
       default: false
     },
     is_active: {
       type: Boolean,
-      required: true,
       default: true
     },
   }

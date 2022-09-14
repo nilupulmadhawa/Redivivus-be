@@ -1,31 +1,31 @@
 import bcrypt from 'bcrypt'
 import {
-
-    createUser,
-
+    createCustomer,
+    getOneCustomer,
+    getAllCustomers
 } from '../repository/customer'
 
 
 
 
-// export const getUsers = async (query) => {
-//     return await getAllUsers(query)
-// }
+export const getCustomers = async (query) => {
+    return await getAllCustomers(query)
+}
 
-// export const getUserByID = async (id) => {
-//     const user = await getOneUser({ _id: id })
-//     if (!user)
-//         return {
-//             status: 422,
-//             message: 'Invalid submission ID',
-//         }
-//     return user
-// }
+export const getCustomerByID = async (id) => {
+    const user = await getOneCustomer({ _id: id })
+    if (!user)
+        return {
+            status: 422,
+            message: 'Invalid Customer ID',
+        }
+    return user
+}
 
 
 
 // export const changePasswordService = async (user, oldPassword, newPassword) => {
-//     user = await getOneUser({ _id: user._id }, true) // because req.user doesn't have the password
+//     user = await getOneCustomer({ _id: user._id }, true) // because req.user doesn't have the password
 
 //     const isPasswordMatch = await new Promise((resolve, reject) => {
 //         bcrypt.compare(oldPassword, user.password, (err, hash) => {
@@ -41,66 +41,53 @@ import {
 //             resolve(hash)
 //         })
 //     })
-//     return await findOneAndUpdateUser({ email: user.email }, { password: encryptedPassword })
+//     return await findOneAndUpdateCustomer({ email: user.email }, { password: encryptedPassword })
 // }
 
-// export const updateUserdetails = async (userId, user, userDetails) => {
+// export const updateCustomerdetails = async (userId, user, userDetails) => {
 //     let userData
 
 //     if (user.role !== 'ADMIN' && userId.toString() !== user._id.toString())
 //         return { status: 403, message: "You are not authorized to update this user" }
 
 //     if (userDetails.name) {
-//         userData = await getOneUser({ name: userDetails.name }, false)
+//         userData = await getOneCustomer({ name: userDetails.name }, false)
 //         if (userData && (userData?._id.toString() !== userId.toString()))
 //             return { status: 422, message: 'Name is already taken' }
 //     }
 
-//     const updatedUser = await findOneAndUpdateUser({ _id: userId }, userDetails)
-//     if (!updatedUser) return {
+//     const updatedCustomer = await findOneAndUpdateCustomer({ _id: userId }, userDetails)
+//     if (!updatedCustomer) return {
 //         status: 422,
 //         message: 'Invalid user ID'
 //     }
-//     return updatedUser
+//     return updatedCustomer
 // }
 
-export const addNewUser = async (userDetails) => {
-    const genaratedPassword = Math.random().toString(36).slice(-8)
-
-    let user = await getOneUser({ email: userDetails.email }, false)
+export const addNewCustomer = async (userDetails) => {
+  
+    let user = await getOneCustomer({ email: userDetails.email }, false)
 
     if (user?._id.toString() !== userDetails._id)
         return { status: 400, message: 'Email is already taken' }
 
-    user = await getOneUser({ name: userDetails.name }, false)
-
-    if (user?.name === userDetails.name)
-        return { status: 400, message: 'Admin names must be unique' }
 
     const encryptedPassword = await new Promise((resolve, reject) => {
-        bcrypt.hash(genaratedPassword, parseInt(process.env.BCRYPT_SALT_ROUNDS), (err, hash) => {
+        bcrypt.hash(userDetails.password, parseInt(process.env.BCRYPT_SALT_ROUNDS), (err, hash) => {
             if (err) reject(err)
             resolve(hash)
         })
     })
 
-    const newUser = await createUser({
+    const newCustomer = await createCustomer({
         ...userDetails,
         password: encryptedPassword,
         is_verified: true,
-        role: 'ADMIN',
+        role: 'Customer',
     })
 
-    let sendEmail
-
-    if (newUser) sendEmail = await sendAdminPassword(userDetails.email, genaratedPassword)
-
-    if (!sendEmail) {
-        await findOneAndRemoveUser({ email: userDetails.email })
-        return
-    }
-
-    return newUser
+    
+    return newCustomer
 }
 
 // const sendAdminPassword = async (email, password) => {
