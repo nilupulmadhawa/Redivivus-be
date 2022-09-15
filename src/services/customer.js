@@ -2,7 +2,8 @@ import bcrypt from 'bcrypt'
 import {
     createCustomer,
     getOneCustomer,
-    getAllCustomers
+    getAllCustomers,
+    findOneAndUpdateCustomer
 } from '../repository/customer'
 
 
@@ -44,25 +45,22 @@ export const getCustomerByID = async (id) => {
 //     return await findOneAndUpdateCustomer({ email: user.email }, { password: encryptedPassword })
 // }
 
-// export const updateCustomerdetails = async (userId, user, userDetails) => {
-//     let userData
+export const updateCustomer = async (userId,userDetails) => {
+    let userData
 
-//     if (user.role !== 'ADMIN' && userId.toString() !== user._id.toString())
-//         return { status: 403, message: "You are not authorized to update this user" }
+    if (userDetails.name) {
+        userData = await getOneCustomer({ name: userDetails.name }, false)
+        if (userData && (userData?._id.toString() !== userId.toString()))
+            return { status: 422, message: 'Name is already taken' }
+    }
 
-//     if (userDetails.name) {
-//         userData = await getOneCustomer({ name: userDetails.name }, false)
-//         if (userData && (userData?._id.toString() !== userId.toString()))
-//             return { status: 422, message: 'Name is already taken' }
-//     }
-
-//     const updatedCustomer = await findOneAndUpdateCustomer({ _id: userId }, userDetails)
-//     if (!updatedCustomer) return {
-//         status: 422,
-//         message: 'Invalid user ID'
-//     }
-//     return updatedCustomer
-// }
+    const updatedCustomer = await findOneAndUpdateCustomer({ _id: userId }, userDetails)
+    if (!updatedCustomer) return {
+        status: 422,
+        message: 'Invalid user ID'
+    }
+    return updatedCustomer
+}
 
 export const addNewCustomer = async (userDetails) => {
   

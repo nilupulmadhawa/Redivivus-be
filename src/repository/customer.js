@@ -45,13 +45,11 @@ export const getOneCustomer = async (filters, returnPassword = false) => {
   return customer
 }
 
-// export const findOneAndUpdateCustomer = async (filters, data) => {
-//   const customer = await Customer.findOneAndUpdate(filters, data, { new: true }).lean()
-//   if (!customer) return null
-
-//   delete customer.password
-//   return customer
-// }
+export const findOneAndUpdateCustomer = async (filters, data) => {
+  const customer = await Customer.findOneAndUpdate(filters, data, { new: true }).lean()
+  if (!customer) return null
+  return customer
+}
 
 // export const getAllCustomerIds = async (filters = {}) => {
 //   const customers = await Customer.find(filters).select('_id').lean()
