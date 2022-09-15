@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/async'
-import { addNewCustomer,changePasswordService ,getCustomers, getCustomerByID, updateCustomer} from '../services/customer'
+import { addNewCustomer,changePasswordService ,getCustomers, getCustomerByID, updateCustomer , deleteCustomerById} from '../services/customer'
 import { makeResponse } from '../utils/response'
 
 
@@ -28,6 +28,12 @@ export const update = asyncHandler(async (req, res) => {
   return makeResponse({ res, status: 200, data: result, message: 'Customer updated successfully' })
 })
 
+export const deleteCustomer = asyncHandler(async (req, res) => {
+  const customer = await getCustomerByID(req.params.id)
+  if (customer.status == 422 ) return makeResponse({ res, status:500, message : 'Customer not found'})
+  await deleteCustomerById(req.params.id)
+  return makeResponse({ res, status: 200, data: customer, message: 'Customer deleted succesfully' })
+})
 
 // export const changePassword = asyncHandler(async (req, res) => {
 //   const result = await changePasswordService(req.user, req.body.old_password, req.body.new_password)

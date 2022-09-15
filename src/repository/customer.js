@@ -56,6 +56,6 @@ export const findOneAndUpdateCustomer = async (filters, data) => {
 //   return customers.map((customer) => customer._id)
 // }
 
-// export const findOneAndRemoveCustomer = async (filters) => {
-//   return await Customer.findOneAndRemove(filters)
-// }
+export const findOneAndRemoveCustomer = async (filters) => {
+  return await Customer.findOneAndRemove(filters)
+}

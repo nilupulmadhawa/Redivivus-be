@@ -1,6 +1,6 @@
 import express from 'express'
 import { celebrate, Segments } from 'celebrate'
-import { create , getAll , getById , update} from '../controllers/customer'
+import { create , getAll , getById , update , deleteCustomer} from '../controllers/customer'
 import { adminProtect } from '../middleware/auth'
 import { registerSchema } from '../validations/customer'
 
@@ -11,6 +11,6 @@ customerRouter.get('/', getAll)
 customerRouter.get('/:id', getById)
 // customerRouter.put('/change_password', celebrate({ [Segments.BODY]: changePasswordSchema }), changePassword)
 customerRouter.put('/:id', update)
-
+customerRouter.delete('/:id' , deleteCustomer)
 
 export default customerRouter

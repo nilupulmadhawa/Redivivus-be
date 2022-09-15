@@ -3,7 +3,8 @@ import {
     createCustomer,
     getOneCustomer,
     getAllCustomers,
-    findOneAndUpdateCustomer
+    findOneAndUpdateCustomer,
+    findOneAndRemoveCustomer
 } from '../repository/customer'
 
 
@@ -95,3 +96,13 @@ export const addNewCustomer = async (userDetails) => {
 //     const subject = 'Welcome to the Bashaway'
 //     return await sendMail(email, 'sendAdminPassword', replacements, subject)
 // }
+
+export const deleteCustomerById = async (userId) => {
+    
+    const customer = await findOneAndRemoveCustomer({ _id: userId })
+    if (!customer) return {
+        status: 422,
+        message: 'Invalid user ID'
+    }
+    return customer
+}
