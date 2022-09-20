@@ -20,7 +20,7 @@ export const getAllCustomers = async ({ sort = {}, filter = {}, pageNum = 1, pag
 
   if (filter.member_count) {
     filter.members = { $size: Number(filter.member_count) }
-    delete filter.member_count
+    delete filter.membecustomerr_count
   }
 
   return await Customer.aggregatePaginate(

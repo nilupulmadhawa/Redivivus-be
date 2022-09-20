@@ -17,7 +17,7 @@ export const getAll = asyncHandler(async (req, res) => {
 
 export const getById = asyncHandler(async (req, res) => {
   const customer = await getCustomerByID(req.params.id)
-  if (!customer) return makeResponse({ res, status:500, message : 'Failed to retrieve customer'})
+  if (customer.status == 422) return makeResponse({ res, status:500, message : 'Failed to retrieve customer'})
   return makeResponse({ res, status: 200, data: customer, message: 'Customer retrieved succesfully' })
 })
 

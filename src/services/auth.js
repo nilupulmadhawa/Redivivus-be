@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
-import { createCustomer , getOneCustomer} from '../repository/customer'
+import { createUser , getOneUser} from '../repository/user'
 
 export const authRegister = async ( userDetails ) => {
-  let user = await getOneCustomer({ email: userDetails.email }, false)
+  let user = await getOneUser({ email: userDetails.email }, false)
 
   if (user?._id.toString() !== userDetails._id)
       return { status: 400, message: 'Email is already taken' }
@@ -15,18 +15,17 @@ export const authRegister = async ( userDetails ) => {
       })
   })
 
-  const newCustomer = await createCustomer({
+  const newUser = await createUser({
       ...userDetails,
       password: encryptedPassword,
       is_verified: true,
-      role: 'Customer',
   })
 
-  return newCustomer
+  return newUser
 }
 
 export const authLogin = async ({ email, password }) => {
-  const user = await getOneCustomer({ email }, true)
+  const user = await getOneUser({ email }, true)
   if (!user) return false
   const isPasswordMatch = await new Promise((resolve, reject) => {
     bcrypt.compare(password, user.password, (err, hash) => {
@@ -61,18 +60,18 @@ export const authLogin = async ({ email, password }) => {
 // }
 
 // export const updateVerificationStatus = async (verificationCode) => {
-//   const user = await getOneCustomer({ verification_code: verificationCode })
+//   const user = await getOneUser({ verification_code: verificationCode })
 //   if (!user) return false
-//   return await findOneAndUpdateCustomer({ email: user.email }, { is_verified: true })
+//   return await findOneAndUpdateUser({ email: user.email }, { is_verified: true })
 // }
 
 // export const authResendVerification = async (email) => {
-//   const user = await getOneCustomer({ email })
+//   const user = await getOneUser({ email })
 //   if (!user) return { status: 400, message: 'A user/group by the provided email does not exist' }
 //   const verification_code = uuidv4()
-//   const updatedCustomer = await findOneAndUpdateCustomer({ email }, { verification_code })
+//   const updatedUser = await findOneAndUpdateUser({ email }, { verification_code })
 //   await verifyMailTemplate(email, verification_code)
-//   return updatedCustomer
+//   return updatedUser
 // }
 
 // export const resetPasswordMailTemplate = async (email, verification_code) => {
@@ -97,16 +96,16 @@ export const authLogin = async ({ email, password }) => {
 // }
 
 // export const forgotPasswordEmail = async (email) => {
-//   const user = await getOneCustomer({ email })
+//   const user = await getOneUser({ email })
 //   if (!user) return { status: 400, message: 'A user/group by the provided email does not exist' }
 //   const verification_code = uuidv4()
-//   const updatedCustomer = await findOneAndUpdateCustomer({ email }, { verification_code })
+//   const updatedUser = await findOneAndUpdateUser({ email }, { verification_code })
 //   await resetPasswordMailTemplate(email, verification_code)
-//   return updatedCustomer
+//   return updatedUser
 // }
 
 // export const resetPasswordFromEmail = async (password, verificationCode) => {
-//   const user = await getOneCustomer({ verification_code: verificationCode })
+//   const user = await getOneUser({ verification_code: verificationCode })
 //   if (!user) return { status: 400, message: 'Click the link we have sent to your email and try again.' }
 
 //   const encryptedPassword = await new Promise((resolve, reject) => {
@@ -115,6 +114,6 @@ export const authLogin = async ({ email, password }) => {
 //       resolve(hash)
 //     })
 //   })
-//   const updatedCustomer = await findOneAndUpdateCustomer({ email: user.email }, { password: encryptedPassword, is_verified: true })
-//   return updatedCustomer
+//   const updatedUser = await findOneAndUpdateUser({ email: user.email }, { password: encryptedPassword, is_verified: true })
+//   return updatedUser
 // }
