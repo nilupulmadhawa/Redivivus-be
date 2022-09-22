@@ -1,5 +1,5 @@
 import mongoose,{Schema} from "mongoose";
-import mongoosePaginate from 'mongoose-paginate-v2';
+
 /*
 * PaymentMethod Schema is defined to store payment method details
 */
@@ -17,7 +17,7 @@ const PaymentMethodSchema =new Schema({
 },{
      versionKey:false,
 })
-PaymentMethodSchema.plugin(mongoosePaginate);
+
 
 PaymentMethodSchema.index({ createdAt: 1 });
 const PaymentMethod = mongoose.model('PaymentMethod',PaymentMethodSchema);
