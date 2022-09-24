@@ -24,6 +24,7 @@ const PickupRequestSchema = new Schema(
       // required: true,
     },
     location: { type: String, required: true },
+    size: { type: String, required: true },
     wasteTypes: [{ type: String, required: true }],
     collectedBy: { type: String },
     confirmedAt: { type: Date },
