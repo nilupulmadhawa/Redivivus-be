@@ -10,7 +10,7 @@ const PaymentSchema = new Schema({
   currency: { type: String, default: "LKR", required: true },
 });
 
-const BinRequestSchema = new Schema(
+const PickUpRequestSchema = new Schema(
   {
     requestId: { type: String, unique: true, required: true },
     requestReceivedBy: {
@@ -32,7 +32,7 @@ const BinRequestSchema = new Schema(
   },
   { versionKey: false }
 );
-BinRequestSchema.index({ createdAt: 1 });
-const BinRequest = mongoose.model("BinRequest", BinRequestSchema);
-BinRequest.syncIndexes();
-export default BinRequest;
+PickUpRequestSchema.index({ createdAt: 1 });
+const PickUpRequest = mongoose.model("PickUpRequest", PickUpRequestSchema);
+PickUpRequest.syncIndexes();
+export default PickUpRequest;
