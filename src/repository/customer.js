@@ -3,14 +3,13 @@ import logger from '../utils/logger'
 
 export const createCustomer = async (customer) => {
   const customerMade = (await new Customer(customer).save()).toObject()
-  delete customerMade.password
   return customerMade
 }
 
-export const getAllCustomers = async ({ sort = {}, filter = {}, pageNum = 1, pageSize = 10 }) => {
+export const getAllCustomers = async ({ sort = {}, filter = {}, page, limit = 10 }) => {
   const options = {
-    page: pageNum,
-    limit: pageSize,
+    page,
+    limit,
     collation: {
       locale: 'en'
     }
@@ -20,18 +19,18 @@ export const getAllCustomers = async ({ sort = {}, filter = {}, pageNum = 1, pag
 
   if (filter.member_count) {
     filter.members = { $size: Number(filter.member_count) }
-    delete filter.membecustomerr_count
+    delete filter.member_count
   }
 
-  return await Customer.aggregatePaginate(
+  const aggregateQuery = () =>
     Customer.aggregate([
       {
         $match: filter
       },
       { $unset: ['password', 'verification_code'] }
-    ]),
-    options
-  ).catch((err) => {
+    ])
+
+  return await (page ? Customer.aggregatePaginate(aggregateQuery(), options) : aggregateQuery()).catch((err) => {
     logger.error(`An error occurred when retrieving customers - err: ${err.message}`)
     throw err
   })
@@ -48,13 +47,10 @@ export const getOneCustomer = async (filters, returnPassword = false) => {
 export const findOneAndUpdateCustomer = async (filters, data) => {
   const customer = await Customer.findOneAndUpdate(filters, data, { new: true }).lean()
   if (!customer) return null
+
+  delete customer.password
   return customer
 }
-
-// export const getAllCustomerIds = async (filters = {}) => {
-//   const customers = await Customer.find(filters).select('_id').lean()
-//   return customers.map((customer) => customer._id)
-// }
 
 export const findOneAndRemoveCustomer = async (filters) => {
   return await Customer.findOneAndRemove(filters)

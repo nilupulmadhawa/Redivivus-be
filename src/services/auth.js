@@ -1,119 +1,49 @@
+import User from "../models/user"
 import bcrypt from 'bcrypt'
-import { createUser , getOneUser} from '../repository/user'
+import { getOneUser, createUser} from "../repository/user"
+import { createAdmin } from "../repository/admin"
+import { createCustomer } from "../repository/customer"
+import { createCompany } from "../repository/company"
 
-export const authRegister = async ( userDetails ) => {
-  let user = await getOneUser({ email: userDetails.email }, false)
-
-  if (user?._id.toString() !== userDetails._id)
-      return { status: 400, message: 'Email is already taken' }
-
-
-  const encryptedPassword = await new Promise((resolve, reject) => {
-      bcrypt.hash(userDetails.password, parseInt(process.env.BCRYPT_SALT_ROUNDS), (err, hash) => {
-          if (err) reject(err)
-          resolve(hash)
-      })
-  })
-
-  const newUser = await createUser({
-      ...userDetails,
-      password: encryptedPassword,
-      is_verified: true,
-  })
-
-  return newUser
-}
-
-export const authLogin = async ({ email, password }) => {
-  const user = await getOneUser({ email }, true)
-  if (!user) return false
-  const isPasswordMatch = await new Promise((resolve, reject) => {
-    bcrypt.compare(password, user.password, (err, hash) => {
-      if (err) reject(err)
-      resolve(hash)
+export const loginUser = async ({ email, password }) => {
+    const user = await getOneUser({ email }, true)
+    if (!user) return false
+    const isPasswordMatch = await new Promise((resolve, reject) => {
+        bcrypt.compare(password, user.password, (err, hash) => {
+            if (err) reject(err)
+            resolve(hash)
+        })
     })
-  })
-  if (!isPasswordMatch) return false
-  delete user.password
-  return user
+    if (!isPasswordMatch) return false
+    delete user.password
+    return user
 }
 
-// export const verifyMailTemplate = async (email, verification_code) => {
-//   const replacements = {
-//     verify_url: `${process.env.APP_DOMAIN}/api/auth/verify/${verification_code}`
-//   }
-//   const attachments = [
-//     {
-//       filename: 'bashawayLogo',
-//       path: __basedir + '/html/images/bashawayLogo.png',
-//       cid: 'bashawayLogo'
-//     },
-//     {
-//       filename: 'fossLogo',
-//       path: __basedir + '/html/images/fossLogo.png',
-//       cid: 'fossLogo'
-//     }
-//   ]
-//   const subject = 'Welcome to the Bashaway'
-//   await sendMail(email, 'verifyRegistration', replacements, subject, attachments)
-//   return true
-// }
+export const registerUser = async ({ user, specificData }) => {
+    console.log(user)
+    const encryptedPassword = await new Promise((resolve, reject) => {
+        bcrypt.hash(user.password, parseInt(process.env.BCRYPT_SALT_ROUNDS), (err, hash) => {
+            if (err) reject(err)
+            resolve(hash)
+        })
+    })
 
-// export const updateVerificationStatus = async (verificationCode) => {
-//   const user = await getOneUser({ verification_code: verificationCode })
-//   if (!user) return false
-//   return await findOneAndUpdateUser({ email: user.email }, { is_verified: true })
-// }
+    if (user.role === 'CUSTOMER') {
+        var newCustomer = await createCustomer(specificData);
+    } else if (user.role === 'ADMIN') {
+        var newAdmin = await createAdmin(specificData);
+    } else if (user.role === 'COMPANY') {
+        var newCompany = await createCompany(specificData);
+    }
 
-// export const authResendVerification = async (email) => {
-//   const user = await getOneUser({ email })
-//   if (!user) return { status: 400, message: 'A user/group by the provided email does not exist' }
-//   const verification_code = uuidv4()
-//   const updatedUser = await findOneAndUpdateUser({ email }, { verification_code })
-//   await verifyMailTemplate(email, verification_code)
-//   return updatedUser
-// }
+    const registeredUser = await createUser({
+        ...user,
+        password: encryptedPassword,
+        admin: user.role === 'ADMIN' ? newAdmin._id : null,
+        customer: user.role === 'CUSTOMER' ? newCustomer._id : null,
+        admin: user.role === 'COMPANY' ? newCompany._id : null
+    })
 
-// export const resetPasswordMailTemplate = async (email, verification_code) => {
-//   const replacements = {
-//     verify_url: `${process.env.FRONTEND_DOMAIN}/forgot_password/${verification_code}`
-//   }
-//   const attachments = [
-//     {
-//       filename: 'bashawayLogo',
-//       path: __basedir + '/html/images/bashawayLogo.png',
-//       cid: 'bashawayLogo'
-//     },
-//     {
-//       filename: 'fossLogo',
-//       path: __basedir + '/html/images/fossLogo.png',
-//       cid: 'fossLogo'
-//     }
-//   ]
-//   const subject = 'Welcome to Bashaway'
-//   await sendMail(email, 'resetPassword', replacements, subject, attachments)
-//   return true
-// }
+    return registeredUser
+}
 
-// export const forgotPasswordEmail = async (email) => {
-//   const user = await getOneUser({ email })
-//   if (!user) return { status: 400, message: 'A user/group by the provided email does not exist' }
-//   const verification_code = uuidv4()
-//   const updatedUser = await findOneAndUpdateUser({ email }, { verification_code })
-//   await resetPasswordMailTemplate(email, verification_code)
-//   return updatedUser
-// }
-
-// export const resetPasswordFromEmail = async (password, verificationCode) => {
-//   const user = await getOneUser({ verification_code: verificationCode })
-//   if (!user) return { status: 400, message: 'Click the link we have sent to your email and try again.' }
-
-//   const encryptedPassword = await new Promise((resolve, reject) => {
-//     bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUNDS), (err, hash) => {
-//       if (err) reject(err)
-//       resolve(hash)
-//     })
-//   })
-//   const updatedUser = await findOneAndUpdateUser({ email: user.email }, { password: encryptedPassword, is_verified: true })
-//   return updatedUser
-// }

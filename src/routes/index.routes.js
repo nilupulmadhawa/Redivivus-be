@@ -1,12 +1,10 @@
-import express from 'express'
-import authRouter from './auth.routes'
-import customerRouter from './customer.routes'
+import express from "express";
+import authRouter from "./auth";
+import userRouter from "./user";
 
-import { protect, adminProtect } from '../middleware/auth'
+const routes = express.Router()
 
-const router = express.Router()
+routes.use('/auth' , authRouter)
+routes.use('/user' , userRouter)
 
-router.use('/auth', authRouter)
-router.use('/customer', customerRouter)
-
-export default router
+export default routes

@@ -4,7 +4,7 @@ import aggregatePaginate from 'mongoose-aggregate-paginate-v2'
 const CompanySchema = new mongoose.Schema(
     {
         common_details: {
-            type: mongoose.SchemaType.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
         bank_details: {
