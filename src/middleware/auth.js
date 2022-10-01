@@ -1,4 +1,4 @@
-import { getOneUser } from '../repository/customer'
+import { getOneUser } from '../repository/user'
 import { decodeJwtToken } from '../utils/jwt'
 import { makeResponse } from '../utils/response'
 import asyncHandler from './async'
@@ -15,5 +15,15 @@ export const protect = asyncHandler(async (req, res, next) => {
 
 export const adminProtect = asyncHandler(async (req, res, next) => {
   if (req.user.role !== 'ADMIN') return makeResponse({ res, status: 403, message: 'Unauthorized' })
+  next()
+})
+
+export const customerProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role !== 'CUSTOMER') return makeResponse({ res, status: 403, message: 'Unauthorized' })
+  next()
+})
+
+export const companyProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role !== 'COMPANY') return makeResponse({ res, status: 403, message: 'Unauthorized' })
   next()
 })

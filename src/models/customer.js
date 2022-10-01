@@ -3,10 +3,6 @@ import aggregatePaginate from 'mongoose-aggregate-paginate-v2'
 
 const CustomerSchema = new mongoose.Schema(
   {
-    common_details : {
-      type : mongoose.Schema.Types.ObjectId,
-      ref : 'User'
-    },
     bank_details: {
       bank_name: {
         type: String,

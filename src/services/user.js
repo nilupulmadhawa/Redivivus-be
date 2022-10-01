@@ -1,3 +1,4 @@
+import { getAllUsers,getOneUser } from "../repository/user"
 
 export const getUsers = async (query) => {
     return await getAllUsers(query)

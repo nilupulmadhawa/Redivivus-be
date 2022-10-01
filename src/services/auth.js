@@ -20,7 +20,6 @@ export const loginUser = async ({ email, password }) => {
 }
 
 export const registerUser = async ({ user, specificData }) => {
-    console.log(user)
     const encryptedPassword = await new Promise((resolve, reject) => {
         bcrypt.hash(user.password, parseInt(process.env.BCRYPT_SALT_ROUNDS), (err, hash) => {
             if (err) reject(err)
@@ -41,7 +40,7 @@ export const registerUser = async ({ user, specificData }) => {
         password: encryptedPassword,
         admin: user.role === 'ADMIN' ? newAdmin._id : null,
         customer: user.role === 'CUSTOMER' ? newCustomer._id : null,
-        admin: user.role === 'COMPANY' ? newCompany._id : null
+        company: user.role === 'COMPANY' ? newCompany._id : null
     })
 
     return registeredUser

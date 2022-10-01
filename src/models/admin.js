@@ -5,7 +5,8 @@ const AdminSchema = new mongoose.Schema(
   {
     emp_id : {
         type : String,
-        required : [true , 'Employee id is required']
+        required : [true , 'Employee id is required'],
+        unique : [true , 'Employee id should be unique']
     },
     designation : {
         type : String ,
