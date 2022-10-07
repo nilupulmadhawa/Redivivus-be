@@ -6,7 +6,7 @@ import mongoose,{Schema} from "mongoose";
 
 const PaymentMethodSchema =new Schema({
      methodType:{type:String, required:true},
-     expirationDate:{type:Date,required:true},
+     expirationDate:{type:String,required:true},
      activeStatus:{type:Boolean,default:true,required:true},
      paymentAddress:[{type:String,required:true}],
      cardNumber:{type:String,required:true,unique:true},  
