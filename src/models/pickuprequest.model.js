@@ -1,7 +1,7 @@
 import mongoose, { Schema, SchemaType } from "mongoose";
 
 const PaymentSchema = new Schema({
-  paymentId: { type: String, unique: true,  required: true },
+  paymentId: { type: String, required: true },
   paidDate: { type: Date },
   receivedDate: { type: Date, required: true },
   companyPaid: { type: Number, required: true },
@@ -10,29 +10,30 @@ const PaymentSchema = new Schema({
   currency: { type: String, default: "LKR", required: true },
 });
 
-const PickUpRequestSchema = new Schema(
+const PickupRequestSchema = new Schema(
   {
-    requestId: { type: String, unique: true, required: true },
+    requestNo: { type: String, unique: true, required: true },
     requestReceivedBy: {
       type: Schema.Types.ObjectId,
       ref: "Company",
-      required: true,
-    }, //ref name must be the model name
+      // required: true,
+    },
     requestedBy: {
       type: Schema.Types.ObjectId,
       ref: "Customer",
-      required: true,
+      // required: true,
     },
-    binLocation: { type: String, required: true },
+    location: { type: Object, required: true },
+    size: { type: String, required: true },
+    note: { type: String },
     wasteTypes: [{ type: String, required: true }],
+    requestStatus: { type: String, required: true, default: "Pending" },
     collectedBy: { type: String },
-    confirmedTime: { type: Date },
-    confirmedDate: { type: Date },
+    confirmedAt: { type: Date },
     payment: { type: PaymentSchema },
   },
-  { versionKey: false }
+  { timestamps: true }
 );
-PickUpRequestSchema.index({ createdAt: 1 });
-const PickUpRequest = mongoose.model("PickUpRequest", PickUpRequestSchema);
-PickUpRequest.syncIndexes();
-export default PickUpRequest;
+const PickupRequest = mongoose.model("PickupRequest", PickupRequestSchema);
+
+export default PickupRequest;
