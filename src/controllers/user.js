@@ -1,6 +1,6 @@
 import asyncHandler from '../middleware/async'
 import { makeResponse } from '../utils/response'
-import { addNewUser,getUsers } from '../services/user'
+import { addNewUser,getUsers,getUserByID,updateUserdetails } from '../services/user'
 
 export const create = asyncHandler(async (req, res) => {
   const result = await addNewUser(req.body)
