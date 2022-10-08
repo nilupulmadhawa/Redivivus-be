@@ -27,13 +27,14 @@ const PickupRequestSchema = new Schema(
     size: { type: String, required: true },
     note: { type: String },
     wasteTypes: [{ type: String, required: true }],
-    requestStatus: { type: String, required: true, default: 'Pending' },
+    requestStatus: { type: String, required: true, default: "Pending" },
+    collectedBy: { type: String },
     confirmedAt: { type: Date },
     payment: { type: PaymentSchema },
   },
   { timestamps: true }
 );
-// PickupRequestSchema.index({ createdAt: 1 });
 const PickupRequest = mongoose.model("PickupRequest", PickupRequestSchema);
-// PickupRequest.syncIndexes();
+
 export default PickupRequest;
+
