@@ -1,9 +1,16 @@
-import express from 'express';
+import express from "express";
+import authRouter from "./auth";
+import userRouter from "./user";
 import paymentMethodRouter from './payment_method.routes';
 import contactUsRouter from './contactus.routes';
 
-const router = express.Router();
+const routes = express.Router()
 
-router.use('/paymentmethod' , paymentMethodRouter )
-router.use('/contactus' , contactUsRouter )
-export default router;
+routes.use('/auth' , authRouter)
+routes.use('/user' , userRouter)
+routes.use('/paymentmethod' , paymentMethodRouter )
+routes.use('/contactus' , contactUsRouter )
+
+export default routes
+
+
