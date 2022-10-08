@@ -4,10 +4,16 @@ import { makeResponse } from '../utils/response'
 
 
 export const addPickupRequest = asyncHandler(async (req, res) => {
-  const result = await createPickupRequest(req.body)
-  if (!result) return makeResponse({ res, status: 500, message: 'Failed to add Pickup Request' })
-  if (result.status) return makeResponse({ res, ...result })
-  return makeResponse({ res, message: 'Pickup Request added successfully' })
+  try {
+    const result = await createPickupRequest(req.body)
+    if (!result) return makeResponse({ res, status: 500, message: 'Failed to add Pickup Request' })
+    console.log(result.status);
+    if (result.status) return makeResponse({ res, ...result })
+    return makeResponse({ res, message: 'Pickup Request added successfully' })
+  } catch (error) {
+    return makeResponse({ res, status: 500, message: error.message })
+  }
+
 })
 
 export const getAllPickupRequests = asyncHandler(async (req, res) => {

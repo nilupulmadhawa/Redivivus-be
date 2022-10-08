@@ -1,7 +1,14 @@
 import { logger } from 'handlebars'
-import { pickupRequests, findPickupRequest, insertPickupRequest, findAndUpdatePickupRequest, removePickupRequest } from '../repository/pickupRequest'
+import { pickupRequests, findPickupRequest, lastPickupRequests, insertPickupRequest, findAndUpdatePickupRequest, removePickupRequest } from '../repository/pickupRequest'
 
 export const createPickupRequest = async (data) => {
+
+  const result = await lastPickupRequests()
+  if (result) {
+    data.requestNo = 'PRN-' + (parseInt(result.requestNo.split('-')[1]) + 1)
+  } else {
+    data.requestNo = 'PRN-1'
+  }
   const pickupRequest = await findPickupRequest({ requestNo: data.requestNo })
   if (pickupRequest) return { status: 400, message: 'Already added' }
   return await insertPickupRequest({ ...data })

@@ -1,7 +1,7 @@
 import mongoose, { Schema, SchemaType } from "mongoose";
 
 const PaymentSchema = new Schema({
-  paymentId: { type: String, unique: true, required: true },
+  paymentId: { type: String, required: true },
   paidDate: { type: Date },
   receivedDate: { type: Date, required: true },
   companyPaid: { type: Number, required: true },
@@ -23,10 +23,11 @@ const PickupRequestSchema = new Schema(
       ref: "Customer",
       // required: true,
     },
-    location: { type: String, required: true },
+    location: { type: Object, required: true },
     size: { type: String, required: true },
+    note: { type: String },
     wasteTypes: [{ type: String, required: true }],
-    collectedBy: { type: String },
+    requestStatus: { type: String, required: true, default: 'Pending' },
     confirmedAt: { type: Date },
     payment: { type: PaymentSchema },
   },

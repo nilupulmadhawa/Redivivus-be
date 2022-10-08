@@ -4,6 +4,10 @@ export const insertPickupRequest = async (data) => {
   return await new PickupRequest(data).save()
 }
 
+export const lastPickupRequests = async () => {
+  return await PickupRequest.findOne().sort({ "_id": -1 }).limit(1);
+}
+
 export const pickupRequests = async (filters) => {
   return await PickupRequest.find(filters)
 }
