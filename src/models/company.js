@@ -26,10 +26,6 @@ const CompanySchema = new mongoose.Schema(
             acc_owner: {
                 type: String,
             }
-        },
-        subscribed_customers: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Customer'
         }
     }
 )
