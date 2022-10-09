@@ -1,10 +1,21 @@
-import express from 'express';
+import express from "express";
+import authRouter from "./auth";
+import userRouter from "./user";
 import paymentMethodRouter from './payment_method.routes';
 import contactUsRouter from './contactus.routes';
-import pickUpRequestRouter from './pickuprequest.routes';
-const router = express.Router();
 
+import pickupRequest from './pickupRequest.routes';
+
+const router = express.Router()
+
+router.use('/auth' , authRouter)
+router.use('/user' , userRouter)
 router.use('/paymentmethod' , paymentMethodRouter )
-router.use('/contactus', contactUsRouter)
-router.use("/pickuprequests", pickUpRequestRouter);
+<
+
+router.use('/contactus' , contactUsRouter )
+
+router.use('/pickupRequest', pickupRequest)
+
 export default router;
+
