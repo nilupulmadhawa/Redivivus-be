@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/async'
-import { retrieveAllPaymentMethods,createPaymentMethod,updatePaymentMethodById, getOnePaymentMethodDetails,deletePaymentMethod} from '../services/paymentmethod'
+import { retrieveAllPaymentMethods,createPaymentMethod,updatePaymentMethodById, getOnePaymentMethodDetails,deletePaymentMethod} from '../services/payment_method'
 import { makeResponse } from '../utils/response'
 
 export const getAllPaymentMethods = asyncHandler(async (req, res) => {
@@ -25,7 +25,7 @@ export const updatePaymentMethod = asyncHandler(async (req, res) => {
 export const getOnePaymentMethod = asyncHandler(async (req, res) => {
   const result = await getOnePaymentMethodDetails(req.params.id)
 
- if (result.status!=200) return makeResponse({ res, ...result })
+ //if (result.status!=200) return makeResponse({ res, ...result })
   return makeResponse({ res, data: result.data, message: result.message })
 })
 
