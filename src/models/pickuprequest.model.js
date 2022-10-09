@@ -38,4 +38,3 @@ const PickupRequestSchema = new Schema(
 const PickupRequest = mongoose.model("PickupRequest", PickupRequestSchema);
 
 export default PickupRequest;
-
