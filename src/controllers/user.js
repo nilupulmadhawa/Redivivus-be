@@ -33,3 +33,10 @@ export const update = asyncHandler(async (req, res) => {
 //     if (result.status) return makeResponse({ res, ...result })
 //     return makeResponse({ res, message: 'User deleted successfully' })
 //   })
+
+export const getMyDetails = asyncHandler(async (req, res) => {
+  console.log(req.user)
+  const ret = await getUserByID(req.user._id)
+  if (ret.status) return makeResponse({ res, ...ret })
+  return makeResponse({ res, status: 200, data: ret, message: 'User retrieved succesfully' })
+})

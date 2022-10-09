@@ -1,5 +1,7 @@
 import Customer from '../models/customer'
+import User from '../models/user'
 import logger from '../utils/logger'
+import mongoose from 'mongoose'
 
 export const createCustomer = async (customer) => {
   const customerMade = (await new Customer(customer).save()).toObject()
@@ -54,4 +56,18 @@ export const findOneAndUpdateCustomer = async (filters, data) => {
 
 export const findOneAndRemoveCustomer = async (filters) => {
   return await Customer.findOneAndRemove(filters)
+}
+
+export const subscribe = async (customerId, companyId) => {
+  const user = Customer.findOne({ _id: customerId })
+  console.log(user.subscribed_companies)
+  // if (user?.subscribed_companies?.includes(companyId)) {
+  //   user.subscribed_companies.pull(companyId)
+  //   subscribed = false
+  // } else {
+    user.subscribed_companies.push(companyId)
+    subscribed = true
+  // }
+  user.save()
+  return subscribed
 }
