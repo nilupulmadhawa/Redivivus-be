@@ -10,8 +10,8 @@ const PaymentMethodSchema = new Schema(
     expirationDate: { type: String, required: true },
     activeStatus: { type: Boolean, default: true, required: true },
     paymentAddress: {
-      addressLine1: { type: String, required: true },
-      addressLine2: { type: String, required: true },
+      addressLine1: { type: String},
+      addressLine2: { type: String },
       addressLine3: { type: String},
     },
     cardNumber: { type: String, required: true, unique: true },
