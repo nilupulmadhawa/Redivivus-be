@@ -2,13 +2,9 @@ import PaymentMethod from '../models/payment_method.model'
 import mongoose from 'mongoose'
 
 const ObjectId = mongoose.Types.ObjectId
-export const getAllPaymentMethods = async (pageSize = 10, pageNum = 1) => {
-  const options = {
-    page: pageNum,
-    limit: pageSize
-  }
+export const getAllPaymentMethods = async () => {
 
-  return await PaymentMethod.paginate({}, options).catch((err) => {
+  return await PaymentMethod.find().catch((err) => {
     logger.error(`An error occurred when retrieving PaymentMethods - err: ${err.message}`)
   })
 }

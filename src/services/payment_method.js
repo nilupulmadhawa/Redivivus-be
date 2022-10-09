@@ -1,5 +1,5 @@
 import { logger } from 'handlebars'
-import { findPaymentMethod, getAllPaymentMethods,insertPaymentMethod,findAndUpdatePaymentMethod,findAndDeletePaymentMethod } from '../repository/paymentmethod'
+import { findPaymentMethod, getAllPaymentMethods,insertPaymentMethod,findAndUpdatePaymentMethod,findAndDeletePaymentMethod } from '../repository/payment_method'
 import { makeResponse } from '../utils/response'
 
 export const retrieveAllPaymentMethods = async (page,limit) => {

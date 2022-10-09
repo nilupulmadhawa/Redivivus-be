@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/async'
-import { retrieveAllPaymentMethods,createPaymentMethod,updatePaymentMethodById, getOnePaymentMethodDetails,deletePaymentMethod} from '../services/paymentmethod'
+import { retrieveAllPaymentMethods,createPaymentMethod,updatePaymentMethodById, getOnePaymentMethodDetails,deletePaymentMethod} from '../services/payment_method'
 import { makeResponse } from '../utils/response'
 
 export const getAllPaymentMethods = asyncHandler(async (req, res) => {
