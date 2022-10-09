@@ -55,3 +55,4 @@ export const findOneAndUpdateCompany = async (filters, data) => {
 export const findOneAndRemoveCompany = async (filters) => {
   return await Company.findOneAndRemove(filters)
 }
+
