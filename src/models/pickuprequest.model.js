@@ -7,6 +7,7 @@ const PaymentSchema = new Schema({
   companyPaid: { type: Number, required: true },
   customerEarned: { type: Number },
   profit: { type: Number },
+  paymentMethod: { type: Schema.Types.ObjectId, ref: "PaymentMethod" },
   currency: { type: String, default: "LKR", required: true },
 });
 
