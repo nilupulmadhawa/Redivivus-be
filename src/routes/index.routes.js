@@ -5,6 +5,7 @@ import paymentMethodRouter from './payment_method.routes';
 import contactUsRouter from './contactus.routes';
 import pickupRequest from './pickupRequest.routes';
 import subscriptionRouter from "./subscription.routes";
+import companyRoute from "./company.route";
 const router = express.Router()
 
 router.use('/auth', authRouter)
@@ -13,7 +14,7 @@ router.use('/paymentmethod', paymentMethodRouter)
 router.use('/contactus' , contactUsRouter )
 router.use('/subscribe' , subscriptionRouter)
 router.use('/pickupRequest', pickupRequest)
-
+router.use("/company", companyRoute);
 
 export default router;
 
