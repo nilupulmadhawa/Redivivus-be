@@ -10,6 +10,8 @@ const PaymentSchema = new Schema({
   paymentMethod: { type: Schema.Types.ObjectId, ref: "PaymentMethod" },
   currency: { type: String, default: "LKR", required: true },
 });
+export const Payment = mongoose.model("Payment", PaymentSchema);
+
 
 const PickupRequestSchema = new Schema(
   {
@@ -31,10 +33,10 @@ const PickupRequestSchema = new Schema(
     requestStatus: { type: String, required: true, default: "Pending" },
     collectedBy: { type: String },
     confirmedAt: { type: Date },
-    payment: { type: PaymentSchema },
+    payment: { type: Schema.Types.ObjectId, ref: "Payment" },
   },
   { timestamps: true }
 );
-const PickupRequest = mongoose.model("PickupRequest", PickupRequestSchema);
+export const PickupRequest = mongoose.model("PickupRequest", PickupRequestSchema);
 
-export default PickupRequest;
+
