@@ -24,7 +24,7 @@ export const findAndUpdatePickupRequest = async (id, updatedpickupReq) => {
 };
 
 export const removePickupRequest = async (id) => {
-  return await await PickupRequest.findByIdAndRemove(id);
+  return await await PickupRequest.findByIdAndRemove(id)
 };
 export const addPayment = async (pickUpId) => {
   // amount: "1000";
