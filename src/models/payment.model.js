@@ -8,8 +8,9 @@ const PaymentSchema = new Schema({
   customerEarned: { type: Number },
   profit: { type: Number },
   paymentMethod: { type: Schema.Types.ObjectId, ref: "PaymentMethod" },
-  currency: { type: String, default: "LKR"},
+  currency: { type: String, default: "LKR" },
   note: { type: String },
+  status: { type: String, default: "Pending" },
 });
 const Payment = mongoose.model("Payment", PaymentSchema);
 
