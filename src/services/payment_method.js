@@ -25,17 +25,7 @@ export const getOnePaymentMethodDetails=async(payment_method_id)=>{
 export const updatePaymentMethodById =async(payment_method_id,data)=>{
 let PaymentMethod = await findPaymentMethod({ _id: payment_method_id })
   if (!PaymentMethod) return { status: 400, message: "Payment method doesn't exist to update" }
-  // if (data.cardNumber) {
-  //   const check = await findEmployee({ cardNumber: data.cardNumber })
-  //   if (check) return { status: 400, message: 'Employee name already taken' }
-  // }
-  // if (Employee.creator_lock && Employee.creator.toString() !== user._id.toString()) return { status: 403, message: 'You are not authorized to update this Employee' }
-  // if (data.max_score) {
-  //   const r = await getSubmissions({ filter: { Employee: Employee_id } }).then((res) => {
-  //     return res
-  //   })
-  //   if (r.totalDocs > 0) return { status: 400, message: 'Cannot update Employee with submissions' }
-  // }
+
   
   return await findAndUpdatePaymentMethod ({ _id: payment_method_id }, data)
 }
