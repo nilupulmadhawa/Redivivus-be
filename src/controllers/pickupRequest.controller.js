@@ -8,7 +8,6 @@ export const addPickupRequest = asyncHandler(async (req, res) => {
     req.body.requestedBy = req.user._id;
     const result = await createPickupRequest(req.body)
     if (!result) return makeResponse({ res, status: 500, message: 'Failed to add Pickup Request' })
-    console.log(result.status);
     if (result.status) return makeResponse({ res, ...result })
     return makeResponse({ res, message: 'Pickup Request added successfully' })
   } catch (error) {

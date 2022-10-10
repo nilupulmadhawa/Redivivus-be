@@ -9,7 +9,7 @@ export const lastPickupRequests = async () => {
 }
 
 export const pickupRequests = async (filters) => {
-  return await PickupRequest.find(filters).populate('requestReceivedBy')
+  return await PickupRequest.find(filters).populate('requestReceivedBy requestedBy')
 }
 
 export const findPickupRequest = async (filters) => {

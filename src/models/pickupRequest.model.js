@@ -30,7 +30,7 @@ const PickupRequestSchema = new Schema(
     wasteTypes: [{ type: String, required: true }],
     requestStatus: { type: String, required: true, default: "Pending" },
     collectedBy: { type: String },
-    confirmedAt: { type: Date },
+    collectAt: { type: Date },
     payment: { type: PaymentSchema },
   },
   { timestamps: true }
