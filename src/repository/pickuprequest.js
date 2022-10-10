@@ -69,5 +69,5 @@ export const addPayment = async (pickUpId) => {
   //   { timestamps: true }
   // );
   let pickupRequest = await findPickupRequest(id);
-  let paymentMethod = await findPaymentMethod(cardNumber);
+  let paymentMethod = await paymentMethod(cardNumber);
 };
