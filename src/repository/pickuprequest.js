@@ -10,7 +10,16 @@ export const lastPickupRequests = async () => {
 };
 
 export const pickupRequests = async (filters) => {
-  return await PickupRequest.find(filters).populate("payment").exec();
+  return await PickupRequest.find(filters)
+    .populate("payment")
+    .populate("requestReceivedBy")
+    .populate("requestedBy")
+    .exec()
+    .catch((err) => {
+      logger.error(
+        `An error occurred when retrieving PaymentMethods - err: ${err.message}`
+      );
+    });
 };
 
 export const findPickupRequest = async (filters) => {

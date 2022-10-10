@@ -16,14 +16,16 @@ export const insertPayment = async (data, paymentMethods, pickupRequest) => {
     paymentMethod: paymentMethods._id,
   };
   const payment = new Payment({ ...paymentObject });
+  paymentMethods.totalPayment = paymentMethods.totalPayment + amount;
+
   try {
     const Payment = await payment.save();
     pickupRequest.payment = Payment._id;
     await pickupRequest.save();
+    await paymentMethods.save();
     return Payment;
   } catch (e) {
     console.log(e.message);
   }
   return {};
-
 };
