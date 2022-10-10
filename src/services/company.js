@@ -20,8 +20,8 @@ export const retrieveAllCompany = async (data) => {
 
 export const getCompanyDetails = async (company_id) => {
   const result = await findCompany({ _id: company_id });
-  
-  if (result) {
+  console.log(result);
+  if (!result) {
     return {
       status: 400,
       message: "This comapany details doesn't exist ",
