@@ -1,6 +1,6 @@
 import { logger } from "handlebars";
 import Payment from "../models/payment.model";
-import PickupRequest from "../models/pickupRequest.model";
+import PickupRequest from "../models/pickuprequest.model";
 import { findPaymentMethod } from "../repository/payment_method";
 
 export const insertPayment = async (data, paymentMethods, pickupRequest) => {

@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/async'
-import { getPickupRequests, createPickupRequest, updatePickupRequest, getPickupRequest, deletePickupRequest } from '../services/pickupRequest'
+import { getPickupRequests, createPickupRequest, updatePickupRequest, getPickupRequest, deletePickupRequest } from '../services/pickuprequest'
 import { makeResponse } from '../utils/response'
 
 
