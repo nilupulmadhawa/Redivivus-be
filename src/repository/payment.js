@@ -9,9 +9,9 @@ export const insertPayment = async (data, paymentMethods, pickupRequest) => {
     paymentId: paymentId,
     paidDate: date,
     receivedDate: date,
-    companyPaid: amount,
-    customerEarned: amount * 0.8,
-    profit: amount * 0.2,
+    companyPaid: amount.toFixed(2),
+    customerEarned: (amount * 0.8).toFixed(2),
+    profit: (amount * 0.2).toFixed(2),
     note: note,
     paymentMethod: paymentMethods._id,
   };

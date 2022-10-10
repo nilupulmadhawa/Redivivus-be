@@ -23,7 +23,17 @@ export const pickupRequests = async (filters) => {
 };
 
 export const findPickupRequest = async (filters) => {
-  return await PickupRequest.findOne(filters);
+  return await PickupRequest.findOne(filters)
+    .populate()
+    .populate("payment")
+    .populate("requestReceivedBy")
+    .populate("requestedBy")
+    .exec()
+    .catch((err) => {
+      logger.error(
+        `An error occurred when retrieving PaymentMethods - err: ${err.message}`
+      );
+    });
 };
 
 export const findAndUpdatePickupRequest = async (id, updatedpickupReq) => {
