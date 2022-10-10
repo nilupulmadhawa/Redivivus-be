@@ -35,8 +35,7 @@ export const update = asyncHandler(async (req, res) => {
 //   })
 
 export const getMyDetails = asyncHandler(async (req, res) => {
-  console.log(req.user)
-  const ret = await getUserByID(req.user._id)
-  if (ret.status) return makeResponse({ res, ...ret })
-  return makeResponse({ res, status: 200, data: ret, message: 'User retrieved succesfully' })
+  const user = await getUserByID(req.user._id)
+  if (user.status) return makeResponse({ res, ...user })
+  return makeResponse({ res, status: 200, data: user, message: 'User retrieved succesfully' })
 })
