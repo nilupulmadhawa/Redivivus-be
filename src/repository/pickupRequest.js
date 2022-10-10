@@ -9,11 +9,11 @@ export const lastPickupRequests = async () => {
 }
 
 export const pickupRequests = async (filters) => {
-  return await PickupRequest.find(filters)
+  return await PickupRequest.find(filters).populate('requestReceivedBy')
 }
 
 export const findPickupRequest = async (filters) => {
-  return await PickupRequest.findOne(filters)
+  return await PickupRequest.findOne(filters).populate('requestReceivedBy')
 }
 
 export const findAndUpdatePickupRequest = async (id, updatedpickupReq) => {

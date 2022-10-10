@@ -1,6 +1,6 @@
 import express from "express";
 import {addPaymentMethod ,updatePaymentMethod ,getOnePaymentMethod,getAllPaymentMethods,removePaymentMethod} from "../controllers/payment_method.controller";
-
+import { protect, adminProtect } from "../middleware/auth";
 const paymentMethodRouter = express.Router();
 
 paymentMethodRouter.post("/",addPaymentMethod);

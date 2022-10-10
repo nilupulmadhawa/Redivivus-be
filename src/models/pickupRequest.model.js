@@ -21,7 +21,7 @@ const PickupRequestSchema = new Schema(
     },
     requestedBy: {
       type: Schema.Types.ObjectId,
-      ref: "Customer",
+      ref: "User",
       // required: true,
     },
     location: { type: Object, required: true },
