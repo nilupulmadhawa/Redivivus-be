@@ -1,4 +1,4 @@
-import PickupRequest from "../models/pickupRequest.model";
+import PickupRequest from "../models/pickuprequest.model";
 import { findPaymentMethod } from "../repository/payment_method";
 
 export const insertPickupRequest = async (data) => {
@@ -10,7 +10,7 @@ export const lastPickupRequests = async () => {
 };
 
 export const pickupRequests = async (filters) => {
-  return await PickupRequest.find(filters);
+  return await PickupRequest.find(filters).populate('payment').exec();
 };
 
 export const findPickupRequest = async (filters) => {
