@@ -37,7 +37,7 @@ export const getAllUsers = async ({ sort = {}, filter = {}, page, limit = 10 }) 
 }
 
 export const getOneUser = async (filters, returnPassword = false) => {
-  const user = await User.findOne(filters).lean()
+  const user = await User.findOne(filters).populate('customer company admin').lean()
   if (!user) return null
 
   if (!returnPassword) delete user.password
