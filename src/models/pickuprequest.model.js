@@ -20,6 +20,7 @@ const PickupRequestSchema = new Schema(
     requestStatus: { type: String, required: true, default: "Pending" },
     collectedBy: { type: String },
     confirmedAt: { type: Date },
+    collectAt: {type:Date},
     payment: { type: Schema.Types.ObjectId, ref: "Payment" },
   },
   { timestamps: true }
