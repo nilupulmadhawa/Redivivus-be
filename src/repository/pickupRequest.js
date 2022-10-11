@@ -10,12 +10,12 @@ export const lastPickupRequests = async () => {
 };
 
 export const pickupRequests = async (filters) => {
-  return await PickupRequest.find(filters);
-};
+  return await PickupRequest.find(filters).populate('requestReceivedBy requestedBy payment')
+}
 
 export const findPickupRequest = async (filters) => {
-  return await PickupRequest.findOne(filters);
-};
+  return await PickupRequest.findOne(filters).populate('requestReceivedBy requestedBy payment')
+}
 
 export const findAndUpdatePickupRequest = async (id, updatedpickupReq) => {
   return await PickupRequest.findByIdAndUpdate(id, updatedpickupReq, {
