@@ -24,7 +24,7 @@ const companySchema = new Schema(
 
     customers: {
       type: "Number",
-      required: true,
+      // required: true,
     },
 
     centers: {
@@ -39,17 +39,17 @@ const companySchema = new Schema(
 
     openhour: {
       type: "String",
-      required: true,
+      // required: true,
     },
 
     closehour: {
       type: "String",
-      required: true,
+      // required: true,
     },
 
     opendays: {
       type: "String",
-      required: true,
+      // required: true,
     },
 
     slogan: {

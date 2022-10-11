@@ -1,13 +1,22 @@
 import express from "express";
-import paymentMethodRouter from "./paymentMethod.routes";
-import contactUsRouter from "./contactus.routes";
+import authRouter from "./auth";
+import userRouter from "./user";
+import paymentMethodRouter from './payment_method.routes';
+import contactUsRouter from './contactus.routes';
+import pickupRequest from './pickupRequest.routes';
+import bin from './bin.routes';
+import subscriptionRouter from "./subscription.routes";
 import companyRoute from "./company.route";
-import binRequestRouter from "./binrequests.routes"
-import customerRoute from "./customer.routes"
-const router = express.Router();
-router.use("/binrequests", binRequestRouter);
-router.use("/paymentmethod", paymentMethodRouter);
-router.use("/contactus", contactUsRouter);
+const router = express.Router()
+
+router.use('/auth', authRouter)
+router.use('/user', userRouter)
+router.use('/paymentmethod', paymentMethodRouter)
+router.use('/contactus', contactUsRouter)
+router.use('/subscribe', subscriptionRouter)
+router.use('/pickupRequest', pickupRequest)
+router.use('/bin', bin)
 router.use("/company", companyRoute);
-router.use("/customer", customerRoute);
+
 export default router;
+
