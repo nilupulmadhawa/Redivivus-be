@@ -1,17 +1,14 @@
 import mongoose, { Schema, SchemaType } from "mongoose";
-
 const PickupRequestSchema = new Schema(
   {
     requestNo: { type: String, unique: true, required: true },
     requestReceivedBy: {
       type: Schema.Types.ObjectId,
       ref: "Company",
-
     },
     requestedBy: {
       type: Schema.Types.ObjectId,
       ref: "Customer",
-
     },
     location: { type: Object, required: true },
     size: { type: String, required: true },
@@ -19,11 +16,15 @@ const PickupRequestSchema = new Schema(
     wasteTypes: [{ type: String, required: true }],
     requestStatus: { type: String, required: true, default: "Pending" },
     collectedBy: { type: String },
-    payment: { type: Schema.Types.ObjectId, ref: "Payment" },
     collectAt: { type: Date },
+    payment: { type: Schema.Types.ObjectId, ref: "Payment" },
   },
   { timestamps: true }
 );
-const PickupRequest = mongoose.model("PickupRequest", PickupRequestSchema);
-
+var PickupRequest;
+if (mongoose.models.PickupRequest) {
+  PickupRequest = mongoose.model("PickupRequest");
+} else {
+  PickupRequest = mongoose.model("PickupRequest", PickupRequestSchema);
+}
 export default PickupRequest;
