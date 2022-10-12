@@ -3,7 +3,7 @@
 In latin redivivus means reborn. That's what we do via this web app. We give life to garbage which are just thrown away without taking any use from. We allow people to sell their household garbage to recyclers. Webapp was developed using MERN. This is the back end repository. JWT was used for authentication. 
 
 ## Clone the repository
-```git clone https://github.com/ThulinaWickramasinghe/Redivivus-be.git```
+```git clone https://github.com/BlackPeral1/redivivus-backend.git```
 
 ## update yarn to the latest stable version
 
