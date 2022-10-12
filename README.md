@@ -1,4 +1,4 @@
-# Redivivus Online Garbagage Management System
+# Redivivus Online Garbage Management System
 
 In latin redivivus means reborn. That's what we do via this web app. We give life to garbage which are just thrown away without taking any use from. We allow people to sell their household garbage to recyclers. Webapp was developed using MERN. This is the back end repository. JWT was used for authentication. 
 
