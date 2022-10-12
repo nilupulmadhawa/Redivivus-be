@@ -3,6 +3,7 @@ import {
   insertCompnay,
   getAllCompany,
 } from "../repository/company";
+import { getAllCustomersWithSub } from "../repository/customer";
 
 export const createCompany = async (data) => {
   const company = await findCompany({ email: data.email });
@@ -32,4 +33,8 @@ export const getCompanyDetails = async (company_id) => {
     data: result,
     message: "Company details retrieved successfully",
   };
+};
+
+export const retrieveAllCompanywithSub = async (data) => {
+  return getAllCustomersWithSub(data);
 };
