@@ -68,3 +68,4 @@ const companySchema = new Schema(
 );
 
 module.exports = mongoose.model("Company", companySchema);
+
